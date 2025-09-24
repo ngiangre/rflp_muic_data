@@ -6,6 +6,10 @@
 This repository is for reviewing the data files from the MUIC case study
 part of Research for the People.
 
+R version 4.5.1 (2025-06-13)
+
+IDE used: Positron
+
 # Data
 
 The path to the data on google drive is stored in an environment file.
