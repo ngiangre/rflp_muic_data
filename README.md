@@ -1,2 +1,2 @@
-# rflp_muic_data
-Code repository for investigating the MUIC data from Research for the People
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
