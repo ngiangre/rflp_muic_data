@@ -8,7 +8,13 @@
 #' @export
 #' 
 #' @examples
-#' NULL
+#' download_to_parquet(
+#'   drive_path = paste0(
+#'     Sys.getenv("MUIC_GDRIVE_PATH"),
+#'     "DNA_SR24-58221_C1_neoantigen_class_I_report.xlsx"
+#'   ),
+#'   dest_path = "inst/data/DNA_SR24-58221_C1_neoantigen_class_I_report.parquet"
+#' )
 download_to_parquet <- function(drive_path, dest_path, sheet = 1) {
   
   # Temporary file to hold the downloaded version
