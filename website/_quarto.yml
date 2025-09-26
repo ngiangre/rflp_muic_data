@@ -8,6 +8,10 @@ website:
     left:
       - href: index.qmd
         text: Home
+    right:
+      - icon: github
+        href: https://github.com/ngiangre/rflp_muic_data
+        aria-label: GitHub
 
 format:
   html:
