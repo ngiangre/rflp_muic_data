@@ -1,0 +1,16 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Overview",
+    "section": "",
+    "text": "This repository is for reviewing the data files from the MUIC case study part of Research for the People.\nr R.Version()[['version.string']]\nIDE used: Positron"
+  },
+  {
+    "objectID": "index.html#neoantigen",
+    "href": "index.html#neoantigen",
+    "title": "Overview",
+    "section": "Neoantigen",
+    "text": "Neoantigen\n\nNeoantigen==Protein on a cancer cell’s surface\nProtein resulted from non-synonymous mutation in tumor\nThus, neoantigens are specific to the tumor\nThus, strong targets for personalized cancer immunotherapies"
+  }
+]

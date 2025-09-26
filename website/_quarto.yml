@@ -1,0 +1,15 @@
+project:
+  type: website
+  output-dir: ../_site
+
+website:
+  title: "MUIC case study"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+
+format:
+  html:
+    theme: pulse
+    toc: true
