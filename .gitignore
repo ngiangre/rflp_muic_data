@@ -52,3 +52,6 @@ project.Rcheck/
 project*.tar.gz
 project*.tgz
 inst/data/
+
+/.quarto/
+**/*.quarto_ipynb
