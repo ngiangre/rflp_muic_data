@@ -21,7 +21,23 @@ download_to_parquet(
 download_to_parquet(
   drive_path = paste0(
     Sys.getenv("MUIC_GDRIVE_PATH"),
-    "Neoantigen/Neoantigen/tsv/DNA_SR24-58221_C1_neoantigen_class_II_report_Fusion.tsv"
+    "Neoantigen/Immunogenomics/DNA_SR24-58221_C1_immunogenomics_report.xlsx"
   ),
-  dest_path = "inst/data/DNA_SR24-58221_C1_neoantigen_class_II_report_Fusion.parquet"
+  dest_path = "inst/data/DNA_SR24-58221_C1_immunogenomics_report.parquet"
+)
+
+download_to_parquet(
+  drive_path = paste0(
+    Sys.getenv("MUIC_GDRIVE_PATH"),
+    "Immune_Infiltrate/RNA_SR24-58221_C1_immune_infiltrate.xlsx"
+  ),
+  dest_path = "inst/data/RNA_SR24-58221_C1_immune_infiltrate.parquet"
+)
+
+download_to_parquet(
+  drive_path = paste0(
+    Sys.getenv("MUIC_GDRIVE_PATH"),
+    "HLA/DNA_2110112624-219-093025_hla.xlsx"
+  ),
+  dest_path = "inst/data/DNA_2110112624-219-093025_hla.parquet"
 )
