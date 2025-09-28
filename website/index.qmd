@@ -14,7 +14,34 @@ The path to the data on google drive is stored in an environment file. All data 
 
 -   Neoantigen==Protein on a cancer cell's surface
 -   Protein resulted from non-synonymous mutation in tumor
--   Thus, neoantigens are specific to the tumor
--   Thus, strong targets for personalized cancer immunotherapies
+-   Presented on HLA alleles
+-   Illicit immune responses (immunogenecity)
+
+Questions:
+-   Why dod the class I and class II report files have different column headers?
+-   We want to make sure that peptides are presented on HLA alleles, or else they're not able to be targeted, right?
+-   We want to make sure the gene is expressed correct?
+-   Does thhe SHERPA presentation  rank take into account immunogenecity and binding ability of the peptides?
+
+```{r}
+arrow::read_parquet(
+  "data/DNA_SR24-58221_C1_neoantigen_class_I_report.parquet"
+) |> 
+  dplyr::filter(
+    .data[['# of Presenting HLA alleles (per peptide)']]>0,
+    .data[['Expressed']]=="Y",
+    .data[['Immunogenicity Score']]>0
+  ) |> 
+  dplyr::summarise(
+    Npeptides = dplyr::n_distinct(.data[['Peptide']]),
+    Avg_SHERPA = mean(.data[['SHERPA Presentation Rank']]),
+    .by = dplyr::all_of(c("Gene Symbol"))
+  ) |> 
+    dplyr::arrange(
+      dplyr::desc(Avg_SHERPA),
+      dplyr::desc(Npeptides)
+    )
+```
+
 
 

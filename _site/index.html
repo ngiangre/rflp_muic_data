@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -135,7 +170,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="overview" class="level1">
 <h1>Overview</h1>
 <p>This repository is for reviewing the data files from the MUIC case study part of Research for the People.</p>
-<p><code>r R.Version()[['version.string']]</code></p>
+<p>R version 4.5.1 (2025-06-13)</p>
 <p>IDE used: Positron</p>
 </section>
 <section id="data" class="level1">
@@ -146,9 +181,45 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li>Neoantigen==Protein on a cancer cell’s surface</li>
 <li>Protein resulted from non-synonymous mutation in tumor</li>
-<li>Thus, neoantigens are specific to the tumor</li>
-<li>Thus, strong targets for personalized cancer immunotherapies</li>
+<li>Presented on HLA alleles</li>
+<li>Illicit immune responses (immunogenecity)</li>
 </ul>
+<p>Questions: - Why dod the class I and class II report files have different column headers? - We want to make sure that peptides are presented on HLA alleles, or else they’re not able to be targeted, right? - We want to make sure the gene is expressed correct? - Does thhe SHERPA presentation rank take into account immunogenecity and binding ability of the peptides?</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>arrow<span class="sc">::</span><span class="fu">read_parquet</span>(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"data/DNA_SR24-58221_C1_neoantigen_class_I_report.parquet"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span> </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    .data[[<span class="st">'# of Presenting HLA alleles (per peptide)'</span>]]<span class="sc">&gt;</span><span class="dv">0</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    .data[[<span class="st">'Expressed'</span>]]<span class="sc">==</span><span class="st">"Y"</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    .data[[<span class="st">'Immunogenicity Score'</span>]]<span class="sc">&gt;</span><span class="dv">0</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">Npeptides =</span> dplyr<span class="sc">::</span><span class="fu">n_distinct</span>(.data[[<span class="st">'Peptide'</span>]]),</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">Avg_SHERPA =</span> <span class="fu">mean</span>(.data[[<span class="st">'SHERPA Presentation Rank'</span>]]),</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">.by =</span> dplyr<span class="sc">::</span><span class="fu">all_of</span>(<span class="fu">c</span>(<span class="st">"Gene Symbol"</span>))</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">arrange</span>(</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>      dplyr<span class="sc">::</span><span class="fu">desc</span>(Avg_SHERPA),</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>      dplyr<span class="sc">::</span><span class="fu">desc</span>(Npeptides)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 64 × 3
+   `Gene Symbol` Npeptides Avg_SHERPA
+   &lt;chr&gt;             &lt;int&gt;      &lt;dbl&gt;
+ 1 KIAA1279              1       82.5
+ 2 CSF2RB                1       79.2
+ 3 TBCK                  1       71.7
+ 4 ZNF787                1       69.2
+ 5 EFS                   1       63.4
+ 6 LYPLA1                1       61.7
+ 7 MTHFD2L               1       60.0
+ 8 MYLK                  1       58.8
+ 9 GNPAT                 1       56  
+10 ZNF500                1       55.9
+# ℹ 54 more rows</code></pre>
+</div>
+</div>
 
 
 </section>

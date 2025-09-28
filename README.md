@@ -16,3 +16,7 @@ IDE used: Positron
 
 Develop research that supports making a personalized neoantigen
 therapeutic.
+
+# Render Website Instructions
+
+`quarto render website` in thhe terminal
