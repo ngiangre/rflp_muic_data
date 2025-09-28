@@ -8,7 +8,7 @@ IDE used: Positron
 
 # Data
 
-The path to the data on google drive is stored in an environment file. All data from the experiments are nested in hat google drive folder. 
+The path to the data on google drive is stored in an environment file. All data from the experiments are nested in hat google drive folder.
 
 ## Neoantigen
 
@@ -18,10 +18,14 @@ The path to the data on google drive is stored in an environment file. All data 
 -   Illicit immune responses (immunogenecity)
 
 Questions:
--   Why dod the class I and class II report files have different column headers?
+
+-   Why do the class I and class II report files have different column headers?
+
 -   We want to make sure that peptides are presented on HLA alleles, or else they're not able to be targeted, right?
+
 -   We want to make sure the gene is expressed correct?
--   Does thhe SHERPA presentation  rank take into account immunogenecity and binding ability of the peptides?
+
+-   Does the SHERPA presentation rank take into account immunogenecity and binding ability of the peptides?
 
 ```{r}
 arrow::read_parquet(
@@ -42,6 +46,3 @@ arrow::read_parquet(
       dplyr::desc(Npeptides)
     )
 ```
-
-
-

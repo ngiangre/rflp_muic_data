@@ -184,7 +184,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Presented on HLA alleles</li>
 <li>Illicit immune responses (immunogenecity)</li>
 </ul>
-<p>Questions: - Why dod the class I and class II report files have different column headers? - We want to make sure that peptides are presented on HLA alleles, or else they’re not able to be targeted, right? - We want to make sure the gene is expressed correct? - Does thhe SHERPA presentation rank take into account immunogenecity and binding ability of the peptides?</p>
+<p>Questions:</p>
+<ul>
+<li><p>Why do the class I and class II report files have different column headers?</p></li>
+<li><p>We want to make sure that peptides are presented on HLA alleles, or else they’re not able to be targeted, right?</p></li>
+<li><p>We want to make sure the gene is expressed correct?</p></li>
+<li><p>Does the SHERPA presentation rank take into account immunogenecity and binding ability of the peptides?</p></li>
+</ul>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>arrow<span class="sc">::</span><span class="fu">read_parquet</span>(</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"data/DNA_SR24-58221_C1_neoantigen_class_I_report.parquet"</span></span>
